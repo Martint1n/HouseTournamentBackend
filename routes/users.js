@@ -8,7 +8,13 @@ router.get('/', function(req, res, next) {
   .then(data => {
     res.json({artist: data});
   });
-  
 });
+
+router.put('/updatepoints', function(req,res) {
+  Artist.updateOne(
+    { _id: req.body.id },    // Filtre pour trouver le document
+    { $set: { points: req.body.points } }  // Opération de mise à jour avec $set
+)
+})
 
 module.exports = router;
