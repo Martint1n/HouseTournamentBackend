@@ -10,11 +10,18 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.put('/updatepoints', function(req,res) {
+router.put('/updatepoints', function(req, res) {
   Artist.updateOne(
     { _id: req.body.id },    // Filtre pour trouver le document
     { $set: { points: req.body.points } }  // Opération de mise à jour avec $set
 )
+.then(result => {
+  console.log(`${result.matchedCount} document(s) correspondant(s) trouvé(s).`);
+  console.log(`${result.modifiedCount} document(s) mis à jour.`);
+})
+.catch(error => {
+  console.error(error);
+});
 })
 
 module.exports = router;
