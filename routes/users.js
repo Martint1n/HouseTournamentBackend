@@ -26,6 +26,24 @@ router.put('/updatepoints', function(req, res) {
   res.status(500).send({ error: 'Update failed' });
 
 });
-})
+});
+
+router.put('/resetpoints', function(req,res) {
+  Artist.updateMany(
+    {},
+    {$set: {points: 0}}
+  )
+  .then(result => {
+    console.log(`${result.matchedCount} document(s) correspondant(s) trouvé(s).`);
+    console.log(`${result.modifiedCount} document(s) mis à jour.`);
+    res.status(200).send({ message: 'Update successful' });
+  
+  })
+  .catch(error => {
+    console.error(error);
+    res.status(500).send({ error: 'Update failed' });
+  
+  });
+});
 
 module.exports = router;
